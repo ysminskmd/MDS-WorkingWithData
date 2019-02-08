@@ -1,1 +1,1 @@
-include ':RawResources', ':Assets', ':Preferences', ':SettingsActivity', ':InternalStorage', ':ExternalStorage', ':DatabaseStorage', ':PackageManager', ':Contacts', ':Broadcasts'
+include ':RawResources', ':Assets', ':Preferences', ':SettingsActivity', ':InternalStorage', ':ExternalStorage', ':DatabaseStorage', ':PackageManager', ':Contacts', ':Broadcasts', ':RoomDatabaseStorage', ':RoomDatabaseStorage', ":Settings"

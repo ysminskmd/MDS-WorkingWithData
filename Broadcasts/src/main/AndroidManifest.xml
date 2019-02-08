@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.example.shad2018_practical4.broadcast"
+<manifest package="com.example.shad.broadcast"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application

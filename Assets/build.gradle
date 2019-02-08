@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.example.shad2018_practical4.assets"
+        applicationId "com.example.shad.assets"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1

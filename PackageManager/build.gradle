@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.example.shad_2018_practical4.packagemanager"
+        applicationId "com.example.shad.packagemanager"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1

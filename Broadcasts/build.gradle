@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.example.shad2018_practical4.broadcast"
+        applicationId "com.example.shad.broadcast"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
