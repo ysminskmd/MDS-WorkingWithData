@@ -1,6 +1,6 @@
 package com.example.shad.assets;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -20,16 +20,16 @@ public class MainActivity extends AppCompatActivity {
         TextView tvMain = findViewById(R.id.tv_main);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Data from assets/test_asset.xml").append("\n");
+        sb.append("Data from assets/test_asset.html").append("\n");
         try {
-            InputStream is = getAssets().open("shad/test_asset.xml");
+            InputStream is = getAssets().open("shad/test_asset.html");
             sb.append(toString(is));
         } catch (IOException e) {}
 
         tvMain.setText(sb.toString());
 
         WebView webView = findViewById(R.id.web_view);
-        webView.loadUrl("file:///android_asset/shad/test_asset.xml");
+        webView.loadUrl("file:///android_asset/shad/test_asset.html");
     }
 
     private String toString(InputStream is) {

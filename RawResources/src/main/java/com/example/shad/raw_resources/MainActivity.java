@@ -1,7 +1,7 @@
 package com.example.shad.raw_resources;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 
 import java.io.BufferedReader;

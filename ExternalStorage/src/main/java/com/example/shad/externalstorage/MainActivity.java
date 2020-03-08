@@ -4,10 +4,14 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Own cache files
             File ownCacheFileOnExternalStorage = new File(getExternalCacheDir(), "cache_file_1.txt");
+            Log.i("[Shad]", "ownCacheFileOnExternalStorage: " + ownCacheFileOnExternalStorage.getAbsolutePath());
             String cacheString = "Cache string";
             writeDataToFile(ownCacheFileOnExternalStorage, cacheString);
 
@@ -40,12 +45,15 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             }
+        } else {
+            Toast.makeText(this, "External storage not writable", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == 0 && writeExternalStoragePermissionGranted()) {
             writeFileToPublicDirectory();
         }
@@ -57,13 +65,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void writeFileToPublicDirectory() {
         File documentsDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-        if (documentsDirectory.exists() || documentsDirectory.mkdir()) {
+        if (documentsDirectory.exists() || documentsDirectory.mkdirs()) {
             File ownDir = new File(documentsDirectory, "yandex");
-            boolean result = ownDir.mkdir();
-            if (result) {
+            if (ownDir.exists() || ownDir.mkdir()) {
                 File publicFile = new File(ownDir, "public_file_1.txt");
                 writeDataToFile(publicFile, "Public content");
+                Toast.makeText(this, "Public file successfully updated!", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Could not create dir in public directory", Toast.LENGTH_LONG).show();
             }
+        } else {
+            Toast.makeText(this, "Cannot access public directory!", Toast.LENGTH_LONG).show();
         }
     }
 

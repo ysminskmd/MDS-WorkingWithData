@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.shad.contentprovider">
+
+    <permission android:name="com.example.shad.contentprovider.provider.READ" android:protectionLevel="normal" />
+    <permission android:name="com.example.shad.contentprovider.provider.WRITE" android:protectionLevel="normal" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <provider
+            android:name=".provider.MyContentProvider"
+            android:authorities="com.example.shad.contentprovider.provider"
+            android:exported="true"
+            android:label="ShadContentProvider"
+            android:readPermission="com.example.shad.contentprovider.provider.READ"
+            android:writePermission="com.example.shad.contentprovider.provider.WRITE" >
+        </provider>
+
+    </application>
+
+
+</manifest>

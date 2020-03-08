@@ -16,10 +16,14 @@
 
 package com.example.androidx.preference.sample
 
+import android.content.Context
 import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -29,6 +33,9 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        findViewById<Button>(R.id.showBtn).setOnClickListener {
+            showTextEditValue()
+        }
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
@@ -43,6 +50,15 @@ class MainActivity : AppCompatActivity(),
             }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun showTextEditValue() {
+        Toast.makeText(
+                this,
+                PreferenceManager.getDefaultSharedPreferences(this)
+                        .getString("edittext", null),
+                Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -66,8 +82,7 @@ class MainActivity : AppCompatActivity(),
         val args = pref.extras
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
                 classLoader,
-                pref.fragment,
-                args
+                pref.fragment
         ).apply {
             arguments = args
             setTargetFragment(caller, 0)

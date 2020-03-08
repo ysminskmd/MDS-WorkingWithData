@@ -8,8 +8,9 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.provider.BaseColumns;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         static final String CREATE_TABLE_SCRIPT =
                 "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                         "(" +
-                        Columns.FIELD_NUMBER + " NUMBER, " +
+                        Columns.FIELD_NUMBER + " INTEGER, " +
                         Columns.FIELD_TITLE + " TEXT, " +
                         Columns.FIELD_PROGRESS + " REAL, " +
                         Columns.FIELD_META + " BLOB" +
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class MyDbHelper extends SQLiteOpenHelper {
+
         static final int VERSION = 1;
         static final String DB_NAME = "sample.db";
 
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void insertRecord(int number, String title, double progress, byte[] meta) {
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(MyDatabase.Columns.FIELD_NUMBER, number);
         contentValues.put(MyDatabase.Columns.FIELD_TITLE, title);
@@ -98,9 +101,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logData() {
+        Cursor cursor = null;
         try {
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
-            Cursor cursor = db.query(
+            cursor = db.query(
                     //DISTINCT?
                     true,
                     MyDatabase.TABLE_NAME,
@@ -118,13 +122,19 @@ public class MainActivity extends AppCompatActivity {
             );
 
             while (cursor.moveToNext()) {
-                Log.i("Shad", String.format("DbRecord: number = %s; title = %s; progress = %s; meta size = %s",
+                Log.i("[Shad]", String.format("DbRecord: number = %s; title = %s; progress = %s; meta size = %s",
                         cursor.getInt(cursor.getColumnIndex(MyDatabase.Columns.FIELD_NUMBER)),
                         cursor.getString(cursor.getColumnIndex(MyDatabase.Columns.FIELD_TITLE)),
                         cursor.getDouble(cursor.getColumnIndex(MyDatabase.Columns.FIELD_PROGRESS)),
                         cursor.getBlob(cursor.getColumnIndex(MyDatabase.Columns.FIELD_META)).length));
             }
-        } catch (SQLiteException e) {}
+        } catch (SQLiteException e) {
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
     }
 
     private void clearData() {

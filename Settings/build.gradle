@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion BuildVersions.versionSdkCompile
     defaultConfig {
         applicationId "com.example.androidx.preference.sample"
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion BuildVersions.versionSdkTarget
         versionCode 1
         versionName "1.0"
     }
@@ -18,6 +19,8 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.preference:preference:1.1.0-alpha02'
+    implementation "androidx.preference:preference:${BuildVersions.androidXVersionSupportLib}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 }
